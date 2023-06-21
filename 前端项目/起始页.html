@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>起始页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 128, 0, 0.35);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px;
+        }
+        
+        .title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .title:hover {
+            transform: scale(1.2);
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 60%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 9px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #3E8E41;
+        }
+        
+        .time {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+		
+        .searchEnginBox {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .searchEnginBox select {
+            width: auto;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .searchEnginBox:after {
+            content: "";
+            color: #ccc;
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+        }
+        
+        .searchEnginBox select:focus + button, .searchEnginBox select:focus + input[type="text"] {
+            outline: none;
+            box-shadow: none;
+        }
+
+        #quoteContainer {
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            background-color: transparent;
+            padding: 10px;
+            box-shadow: none;
+        }
+		
+		#quoteContainer button {
+			margin: 15px auto;
+			display: block;
+		}
+
+        #quote {
+            font-style: center;
+			text-align: center;
+        }
+		
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			z-index: 99999;
+		}
+		
+		.modal-content {
+			background-color: #fff;
+			border-radius: 5px;
+			padding: 20px;
+			width: 300px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		
+		.modal h2 {
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+		
+		.modal label {
+			display: block;
+			font-size: 14px;
+			margin-bottom: 5px;
+		}
+		
+		.modal input[type="range"] {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+		
+		.modal button {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			float: right;
+		}
+		
+		.modal button:hover {
+			background-color: #3E8E41;
+		}
+		
+		.searchEnginBox select {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">起始页</h1>
+        <div class="time"><span id="time"></span></div>
+        <div class="searchEnginBox">
+            <select id="searchEngine">
+                <option value="Bing">⁣⁣⁣⁣⠀必应⁣⁣⁣⁣⠀</option>
+                <option value="Baidu">⠀百度⠀</option>
+                <option value="Google">⠀谷歌⠀</option>
+				<option value="360So">⠀360⠀</option>
+				<option value="Sougou">⠀搜狗⠀</option>
+            </select>
+        </div>
+        <label for="searchInput"></label>
+        <input type="text" id="searchInput" placeholder="搜索或输入Web地址" onkeydown="if(event.keyCode==13){search()}" onfocus="hideElements()" onblur="showElements()">
+        <button onclick="search()">搜索</button>
+    </div>
+
+    <div id="quoteContainer">
+        <div id="quote"></div>
+		<button onclick="openModal()">修改背景颜色</button>
+    </div>
+	
+	<div class="modal" id="modal">
+		<div class="modal-content">
+			<h2>修改背景颜色</h2>
+			<label for="redRange">红色</label>
+			<input type="range" id="redRange" min="0" max="255" value="0">
+			<label for="greenRange">绿色</label>
+			<input type="range" id="greenRange" min="0" max="255" value="0">
+			<label for="blueRange">蓝色</label>
+			<input type="range" id="blueRange" min="0" max="255" value="0">
+			<div class="button-group">
+				<button onclick="closeModal()">取消</button>
+				<button onclick="changeBackgroundColor()">确定</button>
+			</div>
+		</div>
+	</div>
+	
+	<style>
+		.button-group {
+			display: flex;
+			justify-content: space-between;
+		}
+	</style>
+	
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var timeString = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
+            document.getElementById("time").innerHTML = timeString;
+        }
+        setInterval(updateTime, 1000);
+        
+        function search() {
+			var query = document.getElementById("searchInput").value.trim();
+			var engine = document.getElementById("searchEngine").value;
+			if (query === "") {
+				alert("请输入搜索关键字！");
+			} else if (/^(http:\/\/|https:\/\/)?([a-zA-Z0-9][a-zA-Z0-9\_-]*\.)+[a-zA-Z]{2,}[\/#?]?.*$/.test(query)) {
+				if (!/^((http:\/\/)|(https:\/\/))/.test(query)) {
+					query = "http://" + query;
+				}
+				window.open(query);
+			} else {
+				if (engine == "Bing") {
+					window.open("https://cn.bing.com/search?q=" + query);
+				} else if (engine == "Baidu") {
+					window.open("https://www.baidu.com/s?wd=" + query);
+				} else if (engine == "Google") {
+					window.open("https://www.google.com/search?q=" + query);
+				} else if (engine == "Sougou") {
+					window.open("https://www.sogou.com/web?query=" + query);
+				} else if (engine == "360So") {
+					window.open("https://www.so.com/s?q=" + query);
+				}
+			}
+			document.getElementById("searchInput").value = "";
+		}
+		
+		var quoteList = [
+			"披荆斩棘莫嗟迟，扬帆起航定能至。",
+			"天行健，君子以自强不息。",
+			"读书破万卷，下笔如有神。",
+			"脚踏实地，淡泊名利。",
+			"不以物喜，不以己悲。",
+			"天下兴亡，匹夫有责。",
+			"立志凌云心不惧，风雨兼程步途中。",
+			"春风得意马蹄疾，一日看尽长安花。",
+			"满腹经纶犹未足，一壶浊酒喜相逢。",
+			"岁月虽去人未老，时光常在心犹豫。",
+			"百年人生须努力，世界脚下任征服。",
+			"路漫漫其修远兮，吾将上下而求索。",
+			"人间正道是沧桑，不经风雨怎见彩虹。",
+			"勇攀高峰莫畏难，往来行路何须烦。",
+			"人生自古谁无死，留取丹心照汗青。",
+			"千里之堤毁于蚁穴，积小胜为大成。",
+			"衣带渐宽终不悔，为伊消得人憔悴。",
+			"微尘不染心自清，平生志向在峥嵘。",
+			"长风破浪会有时，直挂云帆济沧海。",
+			"立志踏实勇向前，笃行不辞苦劳心。",
+			"世事洞明皆学问，人情练达即文章。",
+			"身正不怕影子斜，心正不怕天下谤。",
+			"人生匆匆岁月走，梦想未尽路漫漫。",
+			"万水千山只等闲，十年树木，百年树人。",
+			"不积跬步无以至千里，不积小流无以成江海。"
+		];
+		
+		function getQuote() {
+			var index = Math.floor(Math.random() * quoteList.length);
+			return quoteList[index];
+		}
+	
+		function showQuote() {
+			var quoteText = document.getElementById("quote");
+			quoteText.innerHTML = getQuote();
+			setInterval(function () {
+				quoteText.innerHTML = getQuote();
+			}, 10000);
+		}
+		showQuote();
+
+		function openModal() {
+			document.getElementById("modal").style.display = "block";
+		}
+		
+		function closeModal() {
+			document.getElementById("modal").style.display = "none";
+		}
+	
+		function closeModa() {
+			document.getElementById("modal").style.display = "none";
+		}
+	
+		function changeBackgroundColor() {
+			var red = document.getElementById("redRange").value;
+			var green = document.getElementById("greenRange").value;
+			var blue = document.getElementById("blueRange").value;
+			var color = "rgba(" + red + ", " + green + ", " + blue + ", 0.3)";
+			document.body.style.backgroundColor = color;
+			closeModa();
+		}
+		
+		function hideElements() {
+			document.querySelector("#quoteContainer").style.display = "none";
+			document.querySelector("#modal button").style.display = "none";
+		}
+
+		function showElements() {
+			document.querySelector("#quoteContainer").style.display = "block";
+			document.querySelector("#modal button").style.display = "block";
+		}
+	</script>
+</body>
+</html>

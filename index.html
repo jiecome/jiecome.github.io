@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket-Code导航</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .follow-btn {
+      margin: 20px auto;
+      display: block;
+      padding: 10px;
+      font-size: 20px;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      background-color: transparent;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .follow-btn:hover {
+      background-color: #fff;
+      color: #333;
+    }
+
+    header button {
+      margin: 0 10px;
+      background-color: transparent;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    header h1 {
+      transition: font-size 0.3s ease;
+    }
+
+    header h1:hover {
+      font-size: 45px;
+      cursor: pointer;
+      transition: font-size 0.3s ease;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #555;
+    }
+
+    section {
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 35px;
+      color: #fff;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 35px;
+      color: #333;
+      margin-top: 0;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    code {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: 10px;
+      display: block;
+      overflow-x: auto;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ol {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    a {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1></h1>
+
+    <h1 onclick="document.location.reload()">Rocket-Code导航</h1>
+    <button id="follow-btn" class="follow-btn">关注作者</button>
+
+    <h2></h2>
+
+    <div style="justify-content: space-between;">
+      <button onclick="scrollToSection('about-me')">关于我</button>
+      <button onclick="scrollToSection('about-website')">关于本网站</button>
+      <button onclick="scrollToSection('contact-me')">找到我</button>
+      <button onclick="scrollToSection('my-projects')">我的项目</button>
+    </div>
+
+    <h1></h1>
+  </header>
+
+  <section id="about-me">
+    <h2>关于我</h2>
+
+    <p>1995年出生，毕业于四川大学计算机系，现供职于阿里，是一名阿里的前端程序员。</p>
+    <p>作为一名程序员，在繁忙的工作中抽出闲暇时间，自己编写了一些好玩、有趣的小网页，并且当上了哔哩哔哩的UP主。</p>
+    <p>对生活保持热情与期待，越来越理解交流与分享的重要性。我在不停汲取大家宝贵经验的同时，也想回馈自己的所学所感给大家。</p>
+  </section>
+
+  <section id="about-website">
+    <h2>关于本网站</h2>
+
+    <p>编写这样一个网站，我显然不是因为闲得慌（每天都很忙碌），而是因为如下几点：</p>
+    <ol>
+      <li>整理所有网站：一个人拥有太多的网站和账号，很容易失去对这些信息的控制。编写整理网站的合集可以帮助我更方便地找到我需要的信息。</li>
+      <li>开源所有代码：通过开源网站的代码，能够帮助大家更好地了解如何构建类似的网站，并且可以获得大家的宝贵建议。</li>
+      <li>提高编程水平：编写一个这样的网站需要具备一定的编程技能。这个项目可以提高我的编程水平。编写代码并与大家分享，以进一步提升自己的技术水平。</li>
+      <li>努力进行改进：这样的网站可以帮助我反思自己的信息管理方式，并发现其中的不足之处从而进行改进，同时也可以为大家展示一种高效的信息整理方式。</li>
+    </ol>
+    <p>我也要必须在这里感谢大家的支持，大家帮助了这个网站更快地见面。</p>
+  </section>
+
+  <section id="contact-me">
+    <h2>找到我</h2>
+
+    <p>哔哩哔哩：<u>https://space.bilibili.com/3494353863444903?spm_id_from=333.1007.0.0</u></p>
+    <p>哔哩哔哩私信：<u>https://message.bilibili.com/?spm_id_from=333.999.0.0#/whisper/mid3494353863444903</u></p>
+  </section>
+
+  <section id="my-projects">
+    <h2>我的项目</h2>
+
+    <ul>
+      <li>
+        <h3>起始页</h3>
+        <div class="description">挣扎在充满着广告的起始页中，我再也无法仍受，自己编写了这样的一个起始页。这个起始页主打简洁、美观、实用，相信你会喜欢它的！</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/起始页.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>口算练习</h3>
+        <div class="description">一个锻炼四则运算计算能力的网页。其中写了不少可供参考的CSS样式，在项目“登录”中也同样有使用到类似的CSS样式代码。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/口算练习.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>时钟</h3>
+        <div class="description">一个简易的时钟。每隔1秒会自动校准系统时间，并绘制到Canvas画布中。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/时钟.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>井字棋</h3>
+        <div class="description">井字棋是一种在3*3格子上进行的连珠游戏，能极好地训练编程初学者对于语言的掌握程度。因此，本网页应运而生。我也曾使用过Python、C、Visual Basic编写过井字棋游戏。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/井字棋.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>登录</h3>
+        <div class="description">登录界面相信大家都见到过很多次了，它也是程序员必做的项目之一。本网页便实现了一个简易的登录界面。另外，它参考了项目“口算练习”的CSS代码。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/登录.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>动画特效</h3>
+        <div class="description">实在不知道该叫什么名字，就干脆这样取名了。主要是使用CSS和JavaScript来编写。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/动画特效.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>打字游戏</h3>
+        <div class="description">一个简单到不能再简单的打字游戏，不包含计分系统，仅仅用于提升打字速度。</div>
+        <p></p>
+        <a href="/Rocket-Code导航/前端项目/打字游戏.html">打开项目</a>
+        <p></p>
+      </li>
+
+      <li>
+        <h3>更多项目</h3>
+        <div class="description">更多项目敬请期待！我也在不断编写中！</div>
+      </li>
+    </ul>
+  </section>
+
+  <script>
+    const followBtn = document.querySelector("#follow-btn");
+    followBtn.addEventListener("click", function() {
+      window.location.href = "https://space.bilibili.com/3494353863444903?spm_id_from=333.1007.0.0";
+    });
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  </script>
+</body>
+
+</html>

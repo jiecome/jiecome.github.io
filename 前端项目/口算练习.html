@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>口算练习</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 500px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #474747;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .equation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            font-size: 32px;
+            color: #474747;
+            border-bottom: 1px dotted #ccc;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 96%;
+            height: 50px;
+            font-size: 24px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            width: 100%;
+            height: 60px;
+            margin-top: 20px;
+            background-color: #4285f4;
+            color: #fff;
+            font-size: 24px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #1a73e8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>口算练习</h1>
+        <p>请回答以下的算式：</p>
+        <div class="equation" id="equation"></div>
+        <input type="text" id="answer" placeholder="答案">
+        <button onclick="checkAnswer()">提交</button>
+    </div>
+
+    <script>
+        function generateEquation() {
+            var num1, num2, operator, answer;
+            do {
+                num1 = Math.floor(Math.random() * 20) + 1;
+                num2 = Math.floor(Math.random() * 20) + 1;
+                operator = Math.floor(Math.random() * 4);
+                switch (operator) {
+                    case 0:
+                        var equation = num1 + " + " + num2;
+                        answer = num1 + num2;
+                        break;
+                    case 1:
+                        var equation = num1 + " - " + num2;
+                        answer = num1 - num2;
+                        break;
+                    case 2:
+                        var equation = num1 + " × " + num2;
+                        answer = num1 * num2;
+                        break;
+                    case 3:
+                        var equation = num1 + " ÷ " + num2;
+                        answer = num1 / num2;
+                        break;
+                }
+            } while (answer < 0 || answer % 1 !== 0);
+            return {
+                equation: equation,
+                answer: answer
+            };
+        }
+
+        var data = generateEquation();
+        document.getElementById("equation").innerHTML = data.equation;
+
+        function checkAnswer() {
+            var userAnswer = Number(document.getElementById("answer").value);
+            if (userAnswer === data.answer) {
+                data = generateEquation();
+                document.getElementById("equation").innerHTML = data.equation;
+                document.getElementById("answer").value = "";
+            } else {
+                document.getElementById("answer").value = "";
+            }
+        }
+
+        document.getElementById("answer").addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                checkAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
