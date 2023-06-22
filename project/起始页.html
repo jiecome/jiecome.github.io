@@ -1,112 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>起始页</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: rgba(0, 128, 0, 0.35);
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 50px;
-        }
-        
-        .title {
-            font-size: 48px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .title:hover {
-            transform: scale(1.2);
-        }
-        
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 60%;
-            max-width: 400px;
-            margin-bottom: 20px;
-        }
-        
-        button {
-            padding: 9px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        button:hover {
-            background-color: #3E8E41;
-        }
-        
-        .time {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+  <meta charset="UTF-8">
+  <title>起始页</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(0, 128, 0, 0.35);
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 50px;
+    }
+    
+    .title {
+      font-size: 48px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .title:hover {
+      transform: scale(1.2);
+    }
+    
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 60%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      padding: 9px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #3E8E41;
+    }
+    
+    .time {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
 		
-        .searchEnginBox {
-            display: inline-block;
-            position: relative;
-        }
-        
-        .searchEnginBox select {
-            width: auto;
-            font-size: 16px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        .searchEnginBox:after {
-            content: "";
-            color: #ccc;
-            font-size: 14px;
-            position: absolute;
-            top: 50%;
-            right: 5px;
-            transform: translateY(-50%);
-        }
-        
-        .searchEnginBox select:focus + button, .searchEnginBox select:focus + input[type="text"] {
-            outline: none;
-            box-shadow: none;
-        }
+    .searchEnginBox {
+      display: inline-block;
+      position: relative;
+    }
+    
+    .searchEnginBox select {
+      width: auto;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .searchEnginBox:after {
+      content: "";
+      color: #ccc;
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+    }
+    
+    .searchEnginBox select:focus + button, .searchEnginBox select:focus + input[type="text"] {
+      outline: none;
+      box-shadow: none;
+    }
 
-        #quoteContainer {
-            position: fixed;
-            bottom: 5px;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            padding: 10px;
-            box-shadow: none;
-        }
+    #quoteContainer {
+      position: fixed;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      background-color: transparent;
+      padding: 10px;
+      box-shadow: none;
+    }
 		
 		#quoteContainer button {
 			margin: 15px auto;
 			display: block;
 		}
 
-        #quote {
-            font-style: center;
+    #quote {
+      font-style: center;
 			text-align: center;
-        }
+    }
 		
 		.modal {
 			display: none;
@@ -167,30 +167,30 @@
 			-moz-appearance: none;
 			appearance: none;
 		}
-    </style>
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">起始页</h1>
-        <div class="time"><span id="time"></span></div>
-        <div class="searchEnginBox">
-            <select id="searchEngine">
-                <option value="Bing">⁣⁣⁣⁣⠀必应⁣⁣⁣⁣⠀</option>
-                <option value="Baidu">⠀百度⠀</option>
-                <option value="Google">⠀谷歌⠀</option>
+  <div class="container">
+    <h1 class="title">起始页</h1>
+    <div class="time"><span id="time"></span></div>
+    <div class="searchEnginBox">
+      <select id="searchEngine">
+        <option value="Bing">⁣⁣⁣⁣⠀必应⁣⁣⁣⁣⠀</option>
+        <option value="Baidu">⠀百度⠀</option>
+        <option value="Google">⠀谷歌⠀</option>
 				<option value="360So">⠀360⠀</option>
 				<option value="Sougou">⠀搜狗⠀</option>
-            </select>
-        </div>
-        <label for="searchInput"></label>
-        <input type="text" id="searchInput" placeholder="搜索或输入Web地址" onkeydown="if(event.keyCode==13){search()}" onfocus="hideElements()" onblur="showElements()">
-        <button onclick="search()">搜索</button>
+      </select>
     </div>
+    <label for="searchInput"></label>
+    <input type="text" id="searchInput" placeholder="搜索或输入Web地址" onkeydown="if(event.keyCode==13){search()}" onfocus="hideElements()" onblur="showElements()">
+    <button onclick="search()">搜索</button>
+  </div>
 
-    <div id="quoteContainer">
-        <div id="quote"></div>
+  <div id="quoteContainer">
+    <div id="quote"></div>
 		<button onclick="openModal()">修改背景颜色</button>
-    </div>
+  </div>
 	
 	<div class="modal" id="modal">
 		<div class="modal-content">
@@ -215,17 +215,17 @@
 		}
 	</style>
 	
-    <script>
-        function updateTime() {
-            var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var timeString = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
-            document.getElementById("time").innerHTML = timeString;
-        }
-        setInterval(updateTime, 1000);
-        
-        function search() {
+  <script>
+    function updateTime() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var timeString = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
+      document.getElementById("time").innerHTML = timeString;
+    }
+    setInterval(updateTime, 1000);
+    
+    function search() {
 			var query = document.getElementById("searchInput").value.trim();
 			var engine = document.getElementById("searchEngine").value;
 			if (query === "") {
