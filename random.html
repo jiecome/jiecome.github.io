@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket-Code导航</title>
+  <script>
+    window.onload = function() {
+      var websites = [
+        "/project/起始页.html",
+        "/project/口算练习.html",
+        "/project/时钟.html",
+        "/project/井字棋.html",
+        "/project/登录.html",
+        "/project/动画特效.html",
+        "/project/打字游戏.html"
+      ];
+
+      var randomIndex = Math.floor(Math.random() * websites.length);
+      var randomWebsite = websites[randomIndex];
+
+      window.location.href = randomWebsite;
+    }
+  </script>
+</head>
+</html>
