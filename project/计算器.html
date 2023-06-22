@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>计算器</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      width: 240px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+
+    .calculator input[type="button"] {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      font-size: 20px;
+    }
+
+    .calculator input[type="text"] {
+      width: 230px;
+      height: 30px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-align: right;
+    }
+
+    .calculator .row {
+      display: flex;
+    }
+  </style>
+  <script>
+    function calculate() {
+      var input = document.getElementById("input");
+      var result = eval(input.value);
+      input.value = result;
+    }
+
+    function clearInput() {
+      document.getElementById("input").value = "";
+    }
+
+    function changeSign() {
+      var input = document.getElementById("input");
+      input.value = -1 * Number(input.value);
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="calculator">
+      <input type="text" id="input">
+      <br>
+      <div class="row">
+        <input type="button" value="C" onclick="clearInput()">
+        <input type="button" value="(" onclick="input.value += '('">
+        <input type="button" value=")" onclick="input.value += ')'">
+        <input type="button" value="/" onclick="input.value += '/'">
+      </div>
+      <div class="row">
+        <input type="button" value="1" onclick="input.value += '1'">
+        <input type="button" value="2" onclick="input.value += '2'">
+        <input type="button" value="3" onclick="input.value += '3'">
+        <input type="button" value="*" onclick="input.value += '*'">
+      </div>
+      <div class="row">
+        <input type="button" value="4" onclick="input.value += '4'">
+        <input type="button" value="5" onclick="input.value += '5'">
+        <input type="button" value="6" onclick="input.value += '6'">
+        <input type="button" value="-" onclick="input.value += '-'">
+      </div>
+      <div class="row">
+        <input type="button" value="7" onclick="input.value += '7'">
+        <input type="button" value="8" onclick="input.value += '8'">
+        <input type="button" value="9" onclick="input.value += '9'">
+        <input type="button" value="+" onclick="input.value += '+'">
+      </div>
+      <div class="row">
+        <input type="button" value="+/-" onclick="changeSign()">
+        <input type="button" value="0" onclick="input.value += '0'">
+        <input type="button" value="." onclick="input.value += '.'">
+        <input type="button" value="=" onclick="calculate()">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
