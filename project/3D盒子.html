@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>3D盒子</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #container {
+      width: 200px;
+      height: 200px;
+      perspective: 600px;
+    }
+
+    #box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+      transform: translate(-50%, -50%);
+    }
+
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+      background-color: #ccc;
+      box-sizing: border-box;
+      opacity: 0.8;
+      font-size: 40px;
+      text-align: center;
+      line-height: 200px;
+      font-weight: bold;
+      color: white;
+    }
+
+    #front {
+      transform: translateZ(100px);
+    }
+
+    #back {
+      transform: rotateX(180deg) translateZ(100px);
+    }
+
+    #left {
+      transform: rotateY(-90deg) translateZ(100px);
+    }
+
+    #right {
+      transform: rotateY(90deg) translateZ(100px);
+    }
+
+    #top {
+      transform: rotateX(90deg) translateZ(100px);
+    }
+
+    #bottom {
+      transform: rotateX(-90deg) translateZ(100px);
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="box">
+      <div id="front" class="face">1</div>
+      <div id="back" class="face">6</div>
+      <div id="left" class="face">4</div>
+      <div id="right" class="face">3</div>
+      <div id="top" class="face">2</div>
+      <div id="bottom" class="face">5</div>
+    </div>
+  </div>
+
+  <script>
+    var box = document.getElementById('box');
+    var container = document.getElementById('container');
+    var xAngle = 0;
+    var yAngle = 0;
+
+    document.addEventListener('mousedown', function (e) {
+      var startX = e.clientX;
+      var startY = e.clientY;
+
+      document.addEventListener('mousemove', move);
+
+      document.addEventListener('mouseup', function () {
+        document.removeEventListener('mousemove', move);
+      });
+
+      function move(e) {
+        var x = e.clientX - startX;
+        var y = e.clientY - startY;
+
+        yAngle += x * 0.02;
+        xAngle -= y * 0.02;
+
+        box.style.transform = 'rotateX(' + xAngle + 'deg) rotateY(' + yAngle + 'deg)';
+      }
+    });
+  </script>
+</body>
+</html>
