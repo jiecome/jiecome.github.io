@@ -5,6 +5,177 @@
   <meta charset="UTF-8">
   <title>Rocket-Code导航</title>
   <link rel="icon" href="logo.png">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    canvas {
+      display: block;
+      position: absolute;
+      z-index: 1;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #navigationLabel {
+    font-size: 36px;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    }
+
+    #navigationLabel:hover {
+      transform: scale(1.2);
+    }
+  </style>
 </head>
+
+<body onload="requestFullScreen()">
+  <canvas id="canvas"></canvas>
+  <div id="overlay">
+    <div id="navigationLabel" onclick="window.location.reload();">Rocket-Code</div>
+  </div>
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var balls = [];
+
+    function Ball(x, y, dx, dy, radius, color, maxSpeed) {
+      this.x = x;
+      this.y = y;
+      this.dx = dx;
+      this.dy = dy;
+      this.radius = radius;
+      this.color = color;
+      this.maxSpeed = maxSpeed || 5;
+
+      this.draw = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      this.update = function() {
+        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+          this.dx = -this.dx;
+        }
+
+        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+          this.dy = -this.dy;
+        }
+
+        if (Math.abs(this.dx) > this.maxSpeed) {
+          this.dx = this.maxSpeed * Math.sign(this.dx);
+        }
+
+        if (Math.abs(this.dy) > this.maxSpeed) {
+          this.dy = this.maxSpeed * Math.sign(this.dy);
+        }
+
+        this.x += this.dx;
+        this.y += this.dy;
+
+        this.draw();
+      }
+    }
+
+    function init() {
+      for (var i = 0; i < 50; i++) {
+        var radius = Math.random() * 25 + 10;
+        var x = Math.random() * (canvas.width - radius * 2) + radius;
+        var y = Math.random() * (canvas.height - radius * 2) + radius;
+        var dx = (Math.random() - 0.5) * 5;
+        var dy = (Math.random() - 0.5) * 5;
+        var color = "rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")";
+
+        balls.push(new Ball(x, y, dx, dy, radius, color, 5));
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (var i = 0; i < balls.length; i++) {
+        balls[i].update();
+
+        for (var j = i + 1; j < balls.length; j++) {
+          if (getDistance(balls[i].x, balls[i].y, balls[j].x, balls[j].y) < balls[i].radius + balls[j].radius) {
+            collide(balls[i], balls[j]);
+          }
+        }
+      }
+    }
+
+    function getDistance(x1, y1, x2, y2) {
+      var xDistance = x2 - x1;
+      var yDistance = y2 - y1;
+
+      return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+    }
+
+    function collide(ball1, ball2) {
+      var xVelocityDiff = ball1.dx - ball2.dx;
+      var yVelocityDiff = ball1.dy - ball2.dy;
+      var xDist = ball2.x - ball1.x;
+      var yDist = ball2.y - ball1.y;
+
+      if (xVelocityDiff * xDist + yVelocityDiff * yDist >= 0) {
+
+        var angle = -Math.atan2(ball2.y - ball1.y, ball2.x - ball1.x);
+
+        var m1 = ball1.radius;
+        var m2 = ball2.radius;
+
+        var u1 = rotate(ball1.dx, ball1.dy, angle);
+        var u2 = rotate(ball2.dx, ball2.dy, angle);
+
+        var v1 = {x: u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2), y: u1.y};
+        var v2 = {x: u2.x * (m1 - m2) / (m1 + m2) + u1.x * 2 * m2 / (m1 + m2), y: u2.y};
+
+        var vf1 = rotate(v1.x, v1.y, -angle);
+        var vf2 = rotate(v2.x, v2.y, -angle);
+
+        ball1.dx = vf1.x;
+        ball1.dy = vf1.y;
+        ball2.dx = vf2.x;
+        ball2.dy = vf2.y;
+      }
+    }
+
+    function rotate(dx, dy, angle) {
+      var x = dx * Math.cos(angle) - dy * Math.sin(angle);
+      var y = dx * Math.sin(angle) + dy * Math.cos(angle);
+
+      return {x: x, y: y};
+    }
+
+    init();
+    animate();
+  </script>
+</body>
 
 </html>
