@@ -50,29 +50,9 @@
 <body>
   <canvas id="canvas"></canvas>
   <div id="overlay">
-    <div id="navigationLabel" onclick="window.location.href=randomWebsite">Rocket-Code</div>
+    <div id="navigationLabel">Rocket-Code</div>
   </div>
   <script>
-    var randomWebsite;
-
-    window.onload = function() {
-      var websites = [
-        "/page/起始页.html",
-        "/page/口算练习.html",
-        "/page/时钟.html",
-        "/page/井字棋.html",
-        "/page/登录.html",
-        "/page/走路.html",
-        "/page/打字游戏.html",
-        "/page/二叉树.html",
-        "/page/计算器.html",
-        "/page/3D盒子.html"
-      ];
-
-      var randomIndex = Math.floor(Math.random() * websites.length);
-      randomWebsite = websites[randomIndex];
-    }
-
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 
@@ -107,14 +87,6 @@
           this.dy = -this.dy;
         }
 
-        if (Math.abs(this.dx) > this.maxSpeed) {
-          this.dx = this.maxSpeed * Math.sign(this.dx);
-        }
-
-        if (Math.abs(this.dy) > this.maxSpeed) {
-          this.dy = this.maxSpeed * Math.sign(this.dy);
-        }
-
         this.x += this.dx;
         this.y += this.dy;
 
@@ -146,6 +118,27 @@
 
     init();
     animate();
+
+    window.onload = function() {
+      var websites = [
+        "/page/起始页.html",
+        "/page/口算练习.html",
+        "/page/时钟.html",
+        "/page/井字棋.html",
+        "/page/登录.html",
+        "/page/走路.html",
+        "/page/打字游戏.html",
+        "/page/二叉树.html",
+        "/page/计算器.html",
+        "/page/3D盒子.html"
+      ];
+
+      document.getElementById("navigationLabel").onclick = function() {
+        var randomIndex = Math.floor(Math.random() * websites.length);
+        var randomWebsite = websites[randomIndex];
+        window.open(randomWebsite, '_blank').focus();
+      }
+    }
   </script>
 </body>
 
