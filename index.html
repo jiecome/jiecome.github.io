@@ -45,12 +45,32 @@
       transform: scale(1.2);
     }
   </style>
+
+  <script>
+    window.onload = function() {
+      var websites = [
+        "/project/起始页.html",
+        "/project/口算练习.html",
+        "/project/时钟.html",
+        "/project/井字棋.html",
+        "/project/登录.html",
+        "/project/动画特效.html",
+        "/project/打字游戏.html",
+        "/project/二叉树.html",
+        "/project/计算器.html",
+        "/project/3D盒子.html"
+      ];
+
+      var randomIndex = Math.floor(Math.random() * websites.length);
+      var randomWebsite = websites[randomIndex];
+    }
+  </script>
 </head>
 
 <body onload="requestFullScreen()">
   <canvas id="canvas"></canvas>
   <div id="overlay">
-    <div id="navigationLabel" onclick="window.location.reload();">Rocket-Code</div>
+    <div id="navigationLabel" onclick="window.location.href=randomWebsite">Rocket-Code</div>
   </div>
   <script>
     var canvas = document.getElementById("canvas");
