@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>井字棋</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    
+    td {
+      width: 75px;
+      height: 75px;
+      border: 1px solid black;
+      text-align: center;
+      font-size: 48px;
+      cursor: pointer;
+    }
+    
+    td:hover {
+      background-color: lightgray;
+    }
+    
+    .X {
+      color: orange;
+    }
+    
+    .O {
+      color: blue;
+    }
+    
+    #message {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>井字棋</h1>
+    <table>
+      <tr>
+        <td onclick="clickCell(1)"></td>
+        <td onclick="clickCell(2)"></td>
+        <td onclick="clickCell(3)"></td>
+      </tr>
+      <tr>
+        <td onclick="clickCell(4)"></td>
+        <td onclick="clickCell(5)"></td>
+        <td onclick="clickCell(6)"></td>
+      </tr>
+      <tr>
+        <td onclick="clickCell(7)"></td>
+        <td onclick="clickCell(8)"></td>
+        <td onclick="clickCell(9)"></td>
+      </tr>
+    </table>
+    <div id="message"></div>
+  </div>
+  <script>
+    var player = "X";
+    var cells = [null, null, null, null, null, null, null, null, null];
+    var winningCells = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]];
+    var gameOver = false;
+    
+    function clickCell(cellNum) {
+      if (!gameOver && cells[cellNum - 1] === null) {
+        document.getElementsByTagName("td")[cellNum - 1].innerHTML = player;
+        document.getElementsByTagName("td")[cellNum - 1].className = player;
+        cells[cellNum - 1] = player;
+        checkWin();
+        player = player === "X" ? "O" : "X";
+      }
+    }
+    
+    function checkWin() {
+      for (var i = 0; i < winningCells.length; i++) {
+        if (cells[winningCells[i][0] - 1] !== null &&
+          cells[winningCells[i][0] - 1] === cells[winningCells[i][1] - 1] &&
+          cells[winningCells[i][1] - 1] === cells[winningCells[i][2] - 1]) {
+          document.getElementById("message").innerHTML = player + "赢了！";
+          gameOver = true;
+          break;
+        }
+      }
+     
+      if (!gameOver && cells.every(function(cell) { return cell !== null })) {
+        document.getElementById("message").innerHTML = "平局！";
+        gameOver = true;
+      }
+    }
+  </script>
+</body>
+
+</html>
