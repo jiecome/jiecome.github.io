@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>反应速度测试</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    #app {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #666;
+    }
+
+    .highlight {
+      color: #e55353;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>反应速度测试</h1>
+    <button id="startBtn">开始测试</button>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById('startBtn').addEventListener('click', function(event) {
+      event.stopPropagation();
+      this.disabled = true;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '<span class="highlight">准备…</span>';
+
+      let isReadyToClick = false;
+      let timeoutHandler;
+
+      const prematureClickHandler = () => {
+        if (!isReadyToClick) {
+          resultDiv.innerHTML = '你点击得太早了！<span class="highlight">请重新开始测试。</span>';
+          cleanup();
+        }
+      };
+
+      setTimeout(() => {
+        document.addEventListener('click', prematureClickHandler);
+      }, 10);
+
+      const startTime = Math.floor(Math.random() * 2000) + 1000;
+      timeoutHandler = setTimeout(() => {
+        isReadyToClick = true;
+        resultDiv.innerHTML = '<span class="highlight">现在点击！</span>';
+        const clickTime = new Date().getTime();
+
+        const clickHandler = () => {
+          const reactTime = new Date().getTime() - clickTime;
+          resultDiv.innerHTML = `你的反应速度是<span class="highlight">${reactTime}毫秒！</span>`;
+          cleanup();
+        };
+
+        document.addEventListener('click', clickHandler, { once: true });
+      }, startTime);
+
+      function cleanup() {
+        clearTimeout(timeoutHandler);
+        document.removeEventListener('click', prematureClickHandler);
+        document.getElementById('startBtn').disabled = false;
+        isReadyToClick = false; // Reset the state
+      }
+    });
+  </script>
+</body>
+
+</html>
