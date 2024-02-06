@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>签名面板</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      background-color: #f0f0f0;
+      flex-direction: column;
+    }
+
+    #signature-pad {
+      position: relative;
+      width: 500px;
+      height: 250px;
+      background-color: black;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 180px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    canvas {
+      display: block;
+      background-color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="signature-pad">
+    <canvas id="signature-canvas" width="500" height="250"></canvas>
+  </div>
+
+  <div class="buttons">
+    <button id="save">保存</button>
+    <button id="clear">清空</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('signature-canvas');
+    const ctx = canvas.getContext('2d');
+    let painting = false;
+
+    function startPosition(e) {
+      painting = true;
+      draw(e);
+    }
+
+    function finishedPosition() {
+      painting = false;
+      ctx.beginPath();
+    }
+
+    function getMousePos(canvas, evt) {
+      var rect = canvas.getBoundingClientRect();
+      return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+      };
+    }
+
+    function draw(e) {
+      if (!painting) return;
+
+      e.preventDefault();
+
+      let pos;
+      if (e.type === 'mousemove' || e.type === 'mousedown' || e.type === 'mouseup') {
+        pos = getMousePos(canvas, e);
+      } else if (e.type === 'touchmove' || e.type === 'touchstart' || e.type === 'touchend') {
+        pos = getMousePos(canvas, e.touches[0]);
+      }
+
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'white';
+
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function drawRoundedRect(ctx, x, y, width, height, borderRadius) {
+      ctx.beginPath();
+      ctx.moveTo(x + borderRadius, y);
+      ctx.lineTo(x + width - borderRadius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
+      ctx.lineTo(x + width, y + height - borderRadius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - borderRadius, y + height);
+      ctx.lineTo(x + borderRadius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
+      ctx.lineTo(x, y + borderRadius);
+      ctx.quadraticCurveTo(x, y, x + borderRadius, y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', startPosition);
+    canvas.addEventListener('mouseup', finishedPosition);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchstart', startPosition);
+    canvas.addEventListener('touchend', finishedPosition);
+    canvas.addEventListener('touchmove', draw);
+
+    document.getElementById('clear').addEventListener('click', function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    document.getElementById('save').addEventListener('click', function() {
+      const dataURL = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'signature.png';
+      link.href = dataURL;
+      link.click();
+    });
+  </script>
+</body>
+
+</html>
